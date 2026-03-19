@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+  <title>Franco Martin Lisi · Senior Full-Stack Developer</title>
+  <!-- Favicon con perfil-pic.jpg -->
+  <link rel="icon" href="./perfil-pic.jpg" type="image/jpeg">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flag-icons/css/flag-icons.min.css">
+  <link rel="stylesheet" href="./src/style.css">
+</head>
+<body>
+
+  <canvas id="bg"></canvas>
+
+  <!-- REPRODUCTOR FLOTANTE -->
+  <div class="floating-player-container" id="playerContainer">
+    <div class="floating-player expanded" id="expandedPlayer" style="display: none;">
+      <div class="player-header" id="dragHandle">
+        <i class="fas fa-music"></i>
+        <span class="player-title">Music Player</span>
+        <button class="toggle-player" id="hidePlayerBtn" title="Minimizar"><i class="fas fa-chevron-left"></i></button>
+      </div>
+      <audio id="audioPlayer" controls></audio>
+      <div class="player-controls">
+        <button class="player-btn" data-src="./music.mp3" data-name="breakcore">breakcore</button>
+      </div>
+      <div class="player-note">Si no se reproduce automáticamente, haz clic en ▶</div>
+    </div>
+
+    <div class="floating-player minimized" id="minimizedPlayer">
+      <div class="mini-content" id="miniDragHandle">
+        <i class="fas fa-music"></i>
+        <span class="song-name" id="miniSongName">breakcore</span>
+        <div class="mini-controls">
+          <button class="mini-btn" id="miniPlayPause" title="Play/Pause"><i class="fas fa-play"></i></button>
+          <button class="mini-btn" id="miniPrev" title="Previous"><i class="fas fa-backward"></i></button>
+          <button class="mini-btn" id="miniNext" title="Next"><i class="fas fa-forward"></i></button>
+        </div>
+        <button class="toggle-player" id="showPlayerBtn" title="Expand"><i class="fas fa-chevron-right"></i></button>
+      </div>
+    </div>
+  </div>
+
+  <!-- SELECTOR DE IDIOMA -->
+  <div class="language-selector" id="languageSelector">
+    <div class="current-lang" id="currentLang">
+      <span class="fi fi-es" id="currentFlag"></span>
+    </div>
+    <div class="lang-options" id="langOptions">
+      <div class="lang-option" data-lang="es"><span class="fi fi-es"></span> Español</div>
+      <div class="lang-option" data-lang="en"><span class="fi fi-gb"></span> English</div>
+      <div class="lang-option" data-lang="ja"><span class="fi fi-jp"></span> 日本語</div>
+    </div>
+  </div>
+
+  <!-- BOTÓN WHATSAPP -->
+  <a href="https://wa.me/5491160210656" class="whatsapp-float" target="_blank" rel="noopener noreferrer">
+    <i class="fab fa-whatsapp"></i>
+  </a>
+
+  <header>
+    <nav>
+      <div class="logo">
+        <!-- Usamos avatar.png para el logo de la navbar -->
+        <img src="./avatar.png" alt="Franco Lisi" class="avatar-logo">
+        <span class="logo-text" data-i18n="nav.logo">Franco Lisi</span>
+      </div>
+      <input type="checkbox" id="menu-toggle" class="menu-toggle">
+      <label for="menu-toggle" class="menu-icon"><i class="fas fa-bars"></i></label>
+      <ul class="menu">
+        <li><a href="#home" data-i18n="nav.home">Inicio</a></li>
+        <li><a href="#about" data-i18n="nav.about">Sobre mí</a></li>
+        <li><a href="#stack" data-i18n="nav.stack">Stack</a></li>
+        <li><a href="#experiencia" data-i18n="nav.experience">Experiencia</a></li>
+        <li class="dropdown">
+          <a href="#" data-i18n="nav.projects">Proyectos</a>
+          <ul class="dropdown-menu">
+            <li><a href="#proyectos-web" data-i18n="nav.projects_web">Web</a></li>
+            <li><a href="#proyectos-gamedev" data-i18n="nav.projects_gamedev">GameDev</a></li>
+          </ul>
+        </li>
+        <li><a href="#gamedev-exp" data-i18n="nav.gamedev">Videojuegos</a></li>
+        <li><a href="#github" data-i18n="nav.github">GitHub</a></li>
+        <li><a href="#recorrido" data-i18n="nav.tour">3D</a></li>
+        <li><a href="#contacto" data-i18n="nav.contact">Contacto</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <!-- HERO -->
+    <section id="home" class="hero">
+      <div class="hero-content fade-up">
+        <div class="availability-badge">
+          <span class="dot"></span>
+          <span data-i18n="hero.available">Disponible para trabajar</span>
+        </div>
+        <div class="hero-avatar" id="logo3D">
+          <div class="avatar-glow"></div>
+          <!-- Usamos perfil-pic.jpg para el avatar 3D (oculto para que lo pinte Three.js) -->
+          <img src="./perfil-pic.jpg" style="display: none;">
+        </div>
+        <h1 class="hero-title">
+          <span class="greeting" data-i18n="hero.greeting">Hola, soy</span>
+          <span class="name">Franco Martin Lisi</span>
+        </h1>
+        <h2 id="typeText" class="hero-typewriter"></h2>
+        <p class="hero-subtitle" data-i18n="hero.subtitle">
+          Desarrollo plataformas escalables, e-commerce, APIs robustas y sistemas empresariales.
+        </p>
+        <div class="hero-tech-icons">
+          <i class="fab fa-react"></i>
+          <i class="fab fa-node-js"></i>
+          <i class="fas fa-database"></i>
+          <i class="fas fa-cube"></i>
+        </div>
+      </div>
+    </section>
+
+    <!-- SOBRE MI -->
+    <section id="about" class="section-card fade-up">
+      <h2 class="section-title" data-i18n="about.title">Sobre mí</h2>
+      <div class="summary" data-i18n="about.summary">
+        Full Stack Developer con experiencia en desarrollo de aplicaciones web escalables,
+        plataformas e-commerce y sistemas de integración HR. Especializado en APIs,
+        arquitectura backend y rendimiento. También exploro el desarrollo de videojuegos y mods.
+      </div>
+    </section>
+
+    <!-- STACK TECNOLÓGICO -->
+    <section id="stack" class="section-card fade-up">
+      <h2 class="section-title" data-i18n="stack.title">Stack Tecnológico</h2>
+      <div class="tech-stack">
+        <div class="tech-category">
+          <h3 data-i18n="stack.languages">Lenguajes</h3>
+          <div class="tech-items">
+            <span class="tech-tag">JavaScript (ES6+)</span>
+            <span class="tech-tag">TypeScript</span>
+            <span class="tech-tag">Python</span>
+            <span class="tech-tag">PHP</span>
+            <span class="tech-tag">C#</span>
+            <span class="tech-tag">Rust</span>
+            <span class="tech-tag">Lua</span>
+            <span class="tech-tag">HTML5</span>
+            <span class="tech-tag">CSS3/SASS</span>
+          </div>
+        </div>
+        <div class="tech-category">
+          <h3 data-i18n="stack.frontend">Frontend & Librerías</h3>
+          <div class="tech-items">
+            <span class="tech-tag">React</span>
+            <span class="tech-tag">Next.js</span>
+            <span class="tech-tag">Redux / Toolkit</span>
+            <span class="tech-tag">React Query</span>
+            <span class="tech-tag">Vue.js</span>
+            <span class="tech-tag">Angular</span>
+            <span class="tech-tag">Svelte</span>
+            <span class="tech-tag">Three.js</span>
+            <span class="tech-tag">Tailwind CSS</span>
+            <span class="tech-tag">Material-UI</span>
+          </div>
+        </div>
+        <div class="tech-category">
+          <h3 data-i18n="stack.backend">Backend & APIs</h3>
+          <div class="tech-items">
+            <span class="tech-tag">Node.js</span>
+            <span class="tech-tag">Express</span>
+            <span class="tech-tag">NestJS</span>
+            <span class="tech-tag">ASP.NET Core</span>
+            <span class="tech-tag">Django</span>
+            <span class="tech-tag">FastAPI</span>
+            <span class="tech-tag">GraphQL</span>
+            <span class="tech-tag">REST</span>
+            <span class="tech-tag">WebSockets</span>
+            <span class="tech-tag">JWT</span>
+          </div>
+        </div>
+        <div class="tech-category">
+          <h3 data-i18n="stack.databases">Bases de Datos</h3>
+          <div class="tech-items">
+            <span class="tech-tag">PostgreSQL</span>
+            <span class="tech-tag">MySQL</span>
+            <span class="tech-tag">MongoDB</span>
+            <span class="tech-tag">SQLite</span>
+            <span class="tech-tag">Redis</span>
+            <span class="tech-tag">Firebase</span>
+          </div>
+        </div>
+        <div class="tech-category">
+          <h3 data-i18n="stack.gamedev">Game Development</h3>
+          <div class="tech-items">
+            <span class="tech-tag">Unity (C#)</span>
+            <span class="tech-tag">Unreal Engine</span>
+            <span class="tech-tag">Lua (FiveM, Roblox)</span>
+            <span class="tech-tag">Love2D</span>
+            <span class="tech-tag">Godot</span>
+          </div>
+        </div>
+        <div class="tech-category">
+          <h3 data-i18n="stack.tools">Herramientas y Otros</h3>
+          <div class="tech-items">
+            <span class="tech-tag">Git</span>
+            <span class="tech-tag">Docker</span>
+            <span class="tech-tag">Linux</span>
+            <span class="tech-tag">WordPress</span>
+            <span class="tech-tag">Discord.js</span>
+            <span class="tech-tag">Jest</span>
+            <span class="tech-tag">Webpack</span>
+            <span class="tech-tag">Figma</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- EXPERIENCIA PROFESIONAL -->
+    <section id="experiencia" class="section-card fade-up">
+      <h2 class="section-title" data-i18n="exp.main_title">Experiencia Profesional</h2>
+      <div class="experience">
+        <div class="exp-card">
+          <div class="exp-title" data-i18n="exp.freelance.title">Senior Full-Stack Developer</div>
+          <div class="exp-company" data-i18n="exp.freelance.company">Freelance · Remoto</div>
+          <div class="exp-date" data-i18n="exp.freelance.date">2026 — Actualidad</div>
+          <ul class="exp-list">
+            <li data-i18n="exp.freelance.item1">Desarrollo de plataformas e-commerce personalizadas</li>
+            <li data-i18n="exp.freelance.item2">Arquitecturas backend escalables</li>
+            <li data-i18n="exp.freelance.item3">Integraciones empresariales (HR, APIs, pagos)</li>
+          </ul>
+        </div>
+        <div class="exp-card">
+          <div class="exp-title" data-i18n="exp.accesswork.title">Full-Stack Developer</div>
+          <div class="exp-company" data-i18n="exp.accesswork.company">AccessWork</div>
+          <div class="exp-date" data-i18n="exp.accesswork.date">2019 — 2025</div>
+          <ul class="exp-list">
+            <li data-i18n="exp.accesswork.item1">Desarrollo de APIs REST</li>
+            <li data-i18n="exp.accesswork.item2">Integración de pagos y logística</li>
+            <li data-i18n="exp.accesswork.item3">Optimización de sistemas y bases de datos</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- PROYECTOS WEB -->
+    <section id="proyectos-web" class="section-card fade-up">
+      <h2 class="section-title" data-i18n="projects.web_title">Proyectos Web</h2>
+      <div class="projects-grid">
+        <div class="project-card" onclick="window.open('https://github.com/sleepincode-pc/job-applications-my-code-previews', '_blank')">
+          <h3 data-i18n="projects.ecommerce.title">E-commerce Platform</h3>
+          <p data-i18n="projects.ecommerce.desc">Plataforma completa con pagos e inventario.</p>
+        </div>
+        <div class="project-card" onclick="window.open('https://github.com/sleepincode-pc/job-applications-my-code-previews', '_blank')">
+          <h3 data-i18n="projects.hr.title">HR Integration System</h3>
+          <p data-i18n="projects.hr.desc">Automatización de procesos empresariales.</p>
+        </div>
+        <div class="project-card" onclick="window.open('https://github.com/sleepincode-pc/job-applications-my-code-previews', '_blank')">
+          <h3 data-i18n="projects.api.title">API Backend</h3>
+          <p data-i18n="projects.api.desc">Arquitectura escalable y segura.</p>
+        </div>
+        <div class="project-card" onclick="window.open('https://github.com/sleepincode-pc/job-applications-my-code-previews', '_blank')">
+          <h3 data-i18n="projects.portfolio.title">3D Portfolio</h3>
+          <p data-i18n="projects.portfolio.desc">Experiencia interactiva con Three.js.</p>
+        </div>
+        <div class="project-card" onclick="window.open('https://github.com/sleepincode-pc/job-applications-my-code-previews', '_blank')">
+          <h3 data-i18n="projects.wp.title">WordPress Membership Plugin</h3>
+          <p data-i18n="projects.wp.desc">Plugin de membresías con pagos recurrentes.</p>
+        </div>
+        <div class="project-card" onclick="window.open('https://github.com/sleepincode-pc/job-applications-my-code-previews', '_blank')">
+          <h3 data-i18n="projects.asoc.title">Asociación Civil Manager</h3>
+          <p data-i18n="projects.asoc.desc">Plataforma de gestión de socios y cuotas.</p>
+        </div>
+        <div class="project-card" onclick="window.open('https://github.com/sleepincode-pc/job-applications-my-code-previews', '_blank')">
+          <h3 data-i18n="projects.langchat.title">LangChat App</h3>
+          <p data-i18n="projects.langchat.desc">Red social para intercambio de idiomas con corrección automática.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- VIDEOJUEGOS (Experiencias y Proyectos) -->
+    <section id="gamedev-exp" class="section-card fade-up">
+      <h2 class="section-title" data-i18n="gamedev.title">Videojuegos</h2>
+      
+      <!-- Experiencias desplegables -->
+      <div class="extra-experience" style="margin-bottom: 2rem;">
+        <details class="exp-details">
+          <summary>
+            <span class="exp-summary-title" data-i18n="extra.lua.title">🎮 Lua en entornos de videojuegos (FiveM, Roblox, WoW, Garry's Mod, Love2D)</span>
+            <span class="exp-summary-icon"><i class="fas fa-chevron-down"></i></span>
+          </summary>
+          <div class="exp-details-content" data-i18n="extra.lua.desc">
+            Creación de scripts y modificaciones para servidores de FiveM (GTA V), experiencias personalizadas en Roblox, addons para World of Warcraft y Garry's Mod, y pequeños juegos con el framework Love2D. El desarrollo en estos entornos enseña a trabajar con APIs específicas, optimización en tiempo real, y lógica de eventos asíncronos. Se adquiere experiencia en integración con bases de datos (MySQL para FiveM) y manejo de colisiones, físicas y UI personalizada.
+          </div>
+        </details>
+        <details class="exp-details">
+          <summary>
+            <span class="exp-summary-title" data-i18n="extra.csharp.title">🎮 Desarrollo de videojuegos con C# (Unity) y Unreal Engine</span>
+            <span class="exp-summary-icon"><i class="fas fa-chevron-down"></i></span>
+          </summary>
+          <div class="exp-details-content" data-i18n="extra.csharp.desc">
+            Creación de prototipos y proyectos completos utilizando Unity (C#) y Unreal Engine (Blueprints/C++). Se aprende programación orientada a objetos aplicada a juegos, patrones de diseño como Singleton y Observer, manejo de físicas, animaciones, IA básica y optimización de renders. Estos conocimientos son transferibles a aplicaciones interactivas y simulaciones.
+          </div>
+        </details>
+      </div>
+
+      <!-- Proyectos de videojuegos (incluye Discord Bot) -->
+      <h3 style="color: white; margin-bottom: 1rem; text-align: center;">Proyectos destacados</h3>
+      <div class="projects-grid">
+        <div class="project-card" onclick="window.open('https://github.com/sleepincode-pc/job-applications-my-code-previews', '_blank')">
+          <h3 data-i18n="projects.fivem.title">FiveM Roleplay Server</h3>
+          <p data-i18n="projects.fivem.desc">Scripts avanzados en Lua para servidor de GTA V con economía y empleos.</p>
+        </div>
+        <div class="project-card" onclick="window.open('https://github.com/sleepincode-pc/job-applications-my-code-previews', '_blank')">
+          <h3 data-i18n="projects.roblox.title">Roblox Obby Creator</h3>
+          <p data-i18n="projects.roblox.desc">Juego de obstáculos con niveles personalizados y sistema de guardado.</p>
+        </div>
+        <div class="project-card" onclick="window.open('https://github.com/sleepincode-pc/job-applications-my-code-previews', '_blank')">
+          <h3 data-i18n="projects.unity.title">Unity 2D Platformer</h3>
+          <p data-i18n="projects.unity.desc">Juego completo con físicas, enemigos y niveles.</p>
+        </div>
+        <div class="project-card" onclick="window.open('https://github.com/sleepincode-pc/job-applications-my-code-previews', '_blank')">
+          <h3 data-i18n="projects.unreal.title">Unreal Engine Prototype</h3>
+          <p data-i18n="projects.unreal.desc">Demo de mecánicas de sigilo en primera persona.</p>
+        </div>
+        <div class="project-card" onclick="window.open('https://github.com/sleepincode-pc/job-applications-my-code-previews', '_blank')">
+          <h3 data-i18n="projects.eyetracking.title">Eye Tracking Analyzer</h3>
+          <p data-i18n="projects.eyetracking.desc">Software en Rust para análisis de atención visual.</p>
+        </div>
+        <div class="project-card" onclick="window.open('https://github.com/sleepincode-pc/job-applications-my-code-previews', '_blank')">
+          <h3 data-i18n="projects.discord.title">Discord Moderation Bot</h3>
+          <p data-i18n="projects.discord.desc">Bot con sistema de advertencias, logs y auto-mod.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECCIÓN GITHUB & LINKEDIN -->
+    <section id="github" class="section-card fade-up">
+      <h2 class="section-title" data-i18n="github.title">GitHub & LinkedIn</h2>
+      <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+        <a href="https://github.com/sleepincode-pc" target="_blank" rel="noopener noreferrer" class="github-link" style="margin: 0;">
+          <i class="fab fa-github github-icon"></i>
+          <span class="github-text" data-i18n="github.text_github">GitHub</span>
+        </a>
+        <a href="https://www.linkedin.com/in/franco-martin-lisi-8338113b5" target="_blank" rel="noopener noreferrer" class="github-link" style="margin: 0;">
+          <i class="fab fa-linkedin github-icon"></i>
+          <span class="github-text" data-i18n="github.text_linkedin">LinkedIn</span>
+        </a>
+      </div>
+    </section>
+
+    <!-- RECORRIDO 3D -->
+    <section id="recorrido" class="recorrido fade-up">
+      <div id="game-overlay">
+        <h2>
+          <span data-i18n="tour.title">Explora mi mundo 3D</span>
+          <span class="badge-beta" style="margin-left: 0.5rem; font-size: 0.8rem; vertical-align: middle;">PRE-ALPHA 0.1</span>
+        </h2>
+        <button id="play-game-btn" class="btn btn-primary" data-i18n="tour.play">▶ Jugar</button>
+      </div>
+      <canvas id="character-canvas"></canvas>
+    </section>
+  </main>
+
+  <footer id="contacto">
+    <p data-i18n="footer.copyright">© 2026 Franco Martin Lisi</p>
+    <div class="social-links">
+      <a href="https://github.com/sleepincode-pc" target="_blank" data-i18n="footer.github">GitHub</a>
+      <a href="https://www.linkedin.com/in/franco-martin-lisi-8338113b5" target="_blank" data-i18n="footer.linkedin">LinkedIn</a>
+      <a href="#" data-i18n="footer.email">Email</a>
+    </div>
+  </footer>
+
+  <script src="./src/translations.js"></script>
+  <script src="./src/i18n.js"></script>
+  <script src="./src/typewriter.js"></script>
+  <script src="./src/player.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const observer = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) entry.target.classList.add("visible");
+        });
+      }, { threshold: 0.15 });
+      document.querySelectorAll(".fade-up").forEach(el => observer.observe(el));
+
+      const btn = document.getElementById("play-game-btn");
+      const overlay = document.getElementById("game-overlay");
+      if (btn) {
+        btn.addEventListener("click", () => {
+          overlay.style.opacity = "0";
+          overlay.style.pointerEvents = "none";
+          setTimeout(() => {
+            overlay.style.display = "none";
+            if (window.startGame) window.startGame();
+          }, 400);
+        });
+      }
+    });
+  </script>
+  <script type="module" src="./src/main.js"></script>
+</body>
+</html>
