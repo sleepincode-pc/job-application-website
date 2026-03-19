@@ -5,11 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
   <title>Franco Martin Lisi · Senior Full-Stack Developer</title>
   <!-- Favicon con perfil-pic.jpg -->
-  <link rel="icon" href="./perfil-pic.jpg" type="image/jpeg">
+  <link rel="icon" href="/perfil-pic.jpg" type="image/jpeg">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flag-icons/css/flag-icons.min.css">
-  <link rel="stylesheet" href="./src/style.css">
+  <link rel="stylesheet" href="/src/style.css">
 </head>
 <body>
 
@@ -25,7 +25,7 @@
       </div>
       <audio id="audioPlayer" controls></audio>
       <div class="player-controls">
-        <button class="player-btn" data-src="./music.mp3" data-name="breakcore">breakcore</button>
+        <button class="player-btn" data-src="/music.mp3" data-name="breakcore">breakcore</button>
       </div>
       <div class="player-note">Si no se reproduce automáticamente, haz clic en ▶</div>
     </div>
@@ -65,7 +65,7 @@
     <nav>
       <div class="logo">
         <!-- Usamos avatar.png para el logo de la navbar -->
-        <img src="./avatar.png" alt="Franco Lisi" class="avatar-logo">
+        <img src="/avatar.png" alt="Franco Lisi" class="avatar-logo">
         <span class="logo-text" data-i18n="nav.logo">Franco Lisi</span>
       </div>
       <input type="checkbox" id="menu-toggle" class="menu-toggle">
@@ -101,7 +101,7 @@
         <div class="hero-avatar" id="logo3D">
           <div class="avatar-glow"></div>
           <!-- Usamos perfil-pic.jpg para el avatar 3D (oculto para que lo pinte Three.js) -->
-          <img src="./perfil-pic.jpg" style="display: none;">
+          <img src="/perfil-pic.jpg" style="display: none;">
         </div>
         <h1 class="hero-title">
           <span class="greeting" data-i18n="hero.greeting">Hola, soy</span>
@@ -370,10 +370,10 @@
     </div>
   </footer>
 
-  <script src="./src/translations.js"></script>
-  <script src="./src/i18n.js"></script>
-  <script src="./src/typewriter.js"></script>
-  <script src="./src/player.js"></script>
+  <script src="/src/translations.js"></script>
+  <script src="/src/i18n.js"></script>
+  <script src="/src/typewriter.js"></script>
+  <script src="/src/player.js"></script>
   <script>
     document.addEventListener("DOMContentLoaded", () => {
       const observer = new IntersectionObserver(entries => {
@@ -397,6 +397,6 @@
       }
     });
   </script>
-  <script type="module" src="./src/main.js"></script>
+  <script type="module" src="/src/main.js"></script>
 </body>
 </html>
